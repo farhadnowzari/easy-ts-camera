@@ -1,0 +1,16 @@
+{
+  "name": "easy-ts-camera",
+  "version": "1.0.0",
+  "description": "A package which helps with adding camera support to a web application with typescript support",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rimraf ./dist && tsc"
+  },
+  "author": "Farhad Nowzari",
+  "license": "ISC",
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^4.2.4"
+  }
+}
