@@ -31,8 +31,8 @@ export default class Camera {
     }
 
     snap(): HTMLCanvasElement {
-        this.builder.canvas.width = this.builder.video.scrollWidth;
-        this.builder.canvas.height = this.builder.video.scrollHeight;
+        this.builder.canvas.width = this.builder.video.videoWidth;
+        this.builder.canvas.height = this.builder.video.videoHeight;
         const context = this.builder.canvas.getContext('2d');
         context.clearRect(0, 0, this.builder.canvas.width, this.builder.canvas.height);
         context.drawImage(this.builder.video, 0, 0, this.builder.canvas.width, this.builder.canvas.height);
