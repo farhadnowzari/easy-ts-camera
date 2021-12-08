@@ -33,10 +33,11 @@ export default class Camera {
         })
     }
 
-    snap(stop: boolean = true): HTMLCanvasElement {
+    snap(stop: boolean = true, clearRect: boolean = true): HTMLCanvasElement {
         this.builder.canvas.width = this.builder.video.videoWidth;
         this.builder.canvas.height = this.builder.video.videoHeight;
-        this.canvasContext.clearRect(0, 0, this.builder.canvas.width, this.builder.canvas.height);
+        if(clearRect)
+            this.canvasContext.clearRect(0, 0, this.builder.canvas.width, this.builder.canvas.height);
         this.canvasContext.drawImage(this.builder.video, 0, 0, this.builder.canvas.width, this.builder.canvas.height);
         if(stop)
             this.stop();
