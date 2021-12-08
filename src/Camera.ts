@@ -30,13 +30,14 @@ export default class Camera {
         })
     }
 
-    snap(): HTMLCanvasElement {
+    snap(stop: boolean = true): HTMLCanvasElement {
         this.builder.canvas.width = this.builder.video.videoWidth;
         this.builder.canvas.height = this.builder.video.videoHeight;
         const context = this.builder.canvas.getContext('2d');
         context.clearRect(0, 0, this.builder.canvas.width, this.builder.canvas.height);
         context.drawImage(this.builder.video, 0, 0, this.builder.canvas.width, this.builder.canvas.height);
-        this.stop();
+        if(stop)
+            this.stop();
         return this.builder.canvas;
     }
 
@@ -52,17 +53,6 @@ export default class Camera {
                 resolve(blob);
             }, 'image/png', 1);
         })
-    }
-
-    /**
-     * This will cause the video to stream on to the canvas.
-     */
-    public liveStreamOnCanvas(): void {
-        this.builder.canvas.width = this.builder.video.videoWidth;
-        this.builder.canvas.height = this.builder.video.videoHeight;
-        const context = this.builder.canvas.getContext('2d');
-        context.clearRect(0, 0, this.builder.canvas.width, this.builder.canvas.height);
-        context.drawImage(this.builder.video, 0, 0, this.builder.canvas.width, this.builder.canvas.height);
     }
 
     public startAsync(): Promise<void> {
