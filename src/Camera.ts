@@ -4,10 +4,13 @@ export default class Camera {
     public devices: Array<MediaDeviceInfo>;
     public builder: CameraBuilder;
     public stream: MediaStream;
+    public canvasContext: CanvasRenderingContext2D | null = null;
 
     constructor(cameraBuilder: CameraBuilder) {
         this.devices = new Array<MediaDeviceInfo>();
         this.builder = cameraBuilder;
+        this.canvasContext = this.builder.canvas.getContext('2d');
+
     }
 
     public getDevicesAsync(): Promise<Array<MediaDeviceInfo>> {
@@ -33,9 +36,8 @@ export default class Camera {
     snap(stop: boolean = true): HTMLCanvasElement {
         this.builder.canvas.width = this.builder.video.videoWidth;
         this.builder.canvas.height = this.builder.video.videoHeight;
-        const context = this.builder.canvas.getContext('2d');
-        context.clearRect(0, 0, this.builder.canvas.width, this.builder.canvas.height);
-        context.drawImage(this.builder.video, 0, 0, this.builder.canvas.width, this.builder.canvas.height);
+        this.canvasContext.clearRect(0, 0, this.builder.canvas.width, this.builder.canvas.height);
+        this.canvasContext.drawImage(this.builder.video, 0, 0, this.builder.canvas.width, this.builder.canvas.height);
         if(stop)
             this.stop();
         return this.builder.canvas;
