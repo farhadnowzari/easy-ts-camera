@@ -44,6 +44,7 @@ CameraUtils.isCameraSupported();
 ## Camera object props
 * **devices:** Contains an array of available VideoInput devices
 * **builder:** An instance of the CameraBuilder class which contains the `HtmlVideoELement` and `HtmlCanvasElement` and also the `MediaConstraints`.
+    * **Builder** now has a method to pick `4K` resolution if available by the camera. call `pick4KResolution` before getting the camera.
 
 ## Methods
 * **getDevicesAsync:** Returns a promise which if is successfull will deliver an array of `MediaDeviceInfo` and if not will log an error.

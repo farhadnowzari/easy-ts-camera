@@ -18,7 +18,8 @@ export default class MediaConstraints {
 
 class VideoConstraints {
     public facingMode: string | object;
-
+    public width: ResolutionRequest;
+    public height: ResolutionRequest;
     public switchFacingMode(tryAgain = false): void {
         if (this.facingMode === 'user') {
             this.facingMode = 'environment';
@@ -31,4 +32,10 @@ class VideoConstraints {
             this.facingMode = 'user';
         }
     }
+}
+
+interface ResolutionRequest {
+    min?: number;
+    max?: number;
+    ideal?: number;
 }

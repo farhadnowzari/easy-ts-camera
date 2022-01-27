@@ -22,6 +22,21 @@ export default class CameraBuilder {
         const instance = new CameraBuilder(MediaConstraints.envCameraConstraints());
         return instance;
     }
+
+    public pick4KResolution(): CameraBuilder {
+        this.mediaConstraints.video.width = {
+            ideal: 3840,
+            max: 4096,
+            min: 1280
+        };
+        this.mediaConstraints.video.height = {
+            ideal: 2140,
+            max: 2160,
+            min: 720
+        };
+        return this;
+    }
+
     /**
      * 
      * @param video The HtmlVideoElement which streams the camera
