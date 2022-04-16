@@ -77,7 +77,6 @@ export default class Camera {
         if (this.builder.video.srcObject instanceof MediaStream) {
             let tracks = (this.builder.video.srcObject as MediaStream).getTracks();
             tracks.forEach(track => track.stop());
-
         } else {
             let tracks = this.stream.getTracks();
             tracks.forEach(track => track.stop());

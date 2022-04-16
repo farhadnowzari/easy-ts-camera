@@ -23,6 +23,9 @@ export default class CameraBuilder {
         return instance;
     }
 
+    /**
+     * It will try to stream the UltraHD resolution from the camera.
+     */
     public pick4KResolution(): CameraBuilder {
         this.mediaConstraints.video.width = {
             ideal: 3840,
@@ -32,6 +35,23 @@ export default class CameraBuilder {
         this.mediaConstraints.video.height = {
             ideal: 2140,
             max: 2160,
+            min: 720
+        };
+        return this;
+    }
+
+    /**
+     * It will try to stream the FullHD resolution from the camera.
+     */
+    public pickFullHDResolution(): CameraBuilder {
+        this.mediaConstraints.video.width = {
+            ideal: 1920,
+            max: 1920,
+            min: 1280
+        };
+        this.mediaConstraints.video.height = {
+            ideal: 1080,
+            max: 1080,
             min: 720
         };
         return this;
@@ -57,7 +77,7 @@ export default class CameraBuilder {
     }
 
     /**
-     * Invoke the camera permission and return the camera
+     * Invoke the camera permission and return a Camera object
      */
     public getCameraAsync(): Promise<Camera> {
         return new Promise<Camera>(async (resolve, reject) => {
