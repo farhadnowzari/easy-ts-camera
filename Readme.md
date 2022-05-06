@@ -1,5 +1,5 @@
 # Easy typescript camera
-**Version** 1.1.0
+**Version** 1.1.2
 
 This package helps you to add camera support to your web application easily and support front and rear camera out of the box.
 
