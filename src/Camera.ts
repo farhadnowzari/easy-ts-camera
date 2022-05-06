@@ -36,10 +36,10 @@ export default class Camera {
     snap(stop: boolean = true, clearRect: boolean = true): HTMLCanvasElement {
         this.builder.canvas.width = this.builder.video.videoWidth;
         this.builder.canvas.height = this.builder.video.videoHeight;
-        if(clearRect)
+        if (clearRect)
             this.canvasContext.clearRect(0, 0, this.builder.canvas.width, this.builder.canvas.height);
         this.canvasContext.drawImage(this.builder.video, 0, 0, this.builder.canvas.width, this.builder.canvas.height);
-        if(stop)
+        if (stop)
             this.stop();
         return this.builder.canvas;
     }
@@ -58,11 +58,19 @@ export default class Camera {
         })
     }
 
+    get currentStreamingDeviceCapabilities(): MediaTrackCapabilities | null {
+        if (!this.stream) return null;
+        const streamVideoTracks = this.stream.getVideoTracks();
+        if (streamVideoTracks.length === 0) return null;
+        return streamVideoTracks[0].getCapabilities();
+    }
+
     public startAsync(): Promise<void> {
         return new Promise<void>(async (resolve, reject) => {
             try {
                 await this.getDevicesAsync();
                 let stream = await navigator.mediaDevices.getUserMedia(this.builder.mediaConstraints);
+
                 this.builder.video.srcObject = stream;
                 this.stream = stream;
                 resolve();

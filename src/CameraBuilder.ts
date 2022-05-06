@@ -5,6 +5,7 @@ export default class CameraBuilder {
     public canvas: HTMLCanvasElement;
     public mediaConstraints: MediaConstraints;
     public video: HTMLVideoElement;
+
     public constructor(mediaConstraints: MediaConstraints) {
         this.mediaConstraints = mediaConstraints;
     }
