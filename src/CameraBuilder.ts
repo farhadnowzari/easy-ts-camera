@@ -6,6 +6,8 @@ export default class CameraBuilder {
     public mediaConstraints: MediaConstraints;
     public video: HTMLVideoElement;
 
+    public cameraStreamListener: (MediaStream) => void | null = null;
+
     public constructor(mediaConstraints: MediaConstraints) {
         this.mediaConstraints = mediaConstraints;
     }
@@ -22,6 +24,15 @@ export default class CameraBuilder {
     public static initWithBackCamera(): CameraBuilder {
         const instance = new CameraBuilder(MediaConstraints.envCameraConstraints());
         return instance;
+    }
+
+
+    /**
+     * By passing this the function will be called every time the stream changes for any reason.
+     */
+    public withCameraStreamListener(cameraStreamListener: (MediaStream) => void): CameraBuilder {
+        this.cameraStreamListener = cameraStreamListener;
+        return this;
     }
 
     /**

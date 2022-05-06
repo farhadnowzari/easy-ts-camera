@@ -5,12 +5,12 @@ export default class Camera {
     public builder: CameraBuilder;
     public stream: MediaStream;
     public canvasContext: CanvasRenderingContext2D | null = null;
-
+    public cameraStreamListener: (MediaStream) => void | null;
     constructor(cameraBuilder: CameraBuilder) {
         this.devices = new Array<MediaDeviceInfo>();
         this.builder = cameraBuilder;
         this.canvasContext = this.builder.canvas.getContext('2d');
-
+        this.cameraStreamListener = cameraBuilder.cameraStreamListener;
     }
 
     public getDevicesAsync(): Promise<Array<MediaDeviceInfo>> {
@@ -58,13 +58,6 @@ export default class Camera {
         })
     }
 
-    get currentStreamingDeviceCapabilities(): MediaTrackCapabilities | null {
-        if (!this.stream) return null;
-        const streamVideoTracks = this.stream.getVideoTracks();
-        if (streamVideoTracks.length === 0) return null;
-        return streamVideoTracks[0].getCapabilities();
-    }
-
     public startAsync(): Promise<void> {
         return new Promise<void>(async (resolve, reject) => {
             try {
@@ -73,6 +66,7 @@ export default class Camera {
 
                 this.builder.video.srcObject = stream;
                 this.stream = stream;
+                this.cameraStreamListener(this.stream);
                 resolve();
             } catch (error) {
                 console.error('StartAsync', error);
