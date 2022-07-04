@@ -44,13 +44,13 @@ export default class Camera {
         return this.builder.canvas;
     }
 
-    snapAsDataUrl(): string {
-        this.snap();
+    snapAsDataUrl(stop: boolean = true, clearRect: boolean = true): string {
+        this.snap(stop, clearRect);
         return this.builder.canvas.toDataURL('image/png');
     }
 
-    snapAsBlobAsync(): Promise<Blob> {
-        this.snap();
+    snapAsBlobAsync(stop: boolean = true, clearRect: boolean = true): Promise<Blob> {
+        this.snap(stop, clearRect);
         return new Promise((resolve) => {
             this.builder.canvas.toBlob((blob) => {
                 resolve(blob);
