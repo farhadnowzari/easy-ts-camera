@@ -74,6 +74,7 @@ export default class Camera {
             }
         });
     }
+
     public stop() {
         if (!this.builder.video && !this.builder.video.srcObject) return;
         if (this.builder.video.srcObject instanceof MediaStream) {
@@ -85,6 +86,7 @@ export default class Camera {
         }
         this.builder.video.srcObject = null;
     }
+
     public switchAsync(tryAgain = false): Promise<void> {
         return new Promise<void>(async (resolve, reject) => {
             this.builder.mediaConstraints.video.switchFacingMode(tryAgain);
