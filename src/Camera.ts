@@ -66,7 +66,8 @@ export default class Camera {
 
                 this.builder.video.srcObject = stream;
                 this.stream = stream;
-                this.cameraStreamListener(this.stream);
+                if(this.cameraStreamListener)
+                    this.cameraStreamListener(this.stream);
                 resolve();
             } catch (error) {
                 console.error('StartAsync', error);
