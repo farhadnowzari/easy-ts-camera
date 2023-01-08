@@ -20,6 +20,9 @@ class VideoConstraints {
     public facingMode: string | object;
     public width: ResolutionRequest;
     public height: ResolutionRequest;
+    public get aspectRatio(): number {
+        return window.innerWidth / window.innerHeight;
+    }
     public switchFacingMode(tryAgain = false): void {
         if (this.facingMode === 'user') {
             this.facingMode = 'environment';

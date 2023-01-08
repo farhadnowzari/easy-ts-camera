@@ -6,6 +6,7 @@ var canvas = document.getElementsByTagName('canvas')[0];
 ETC.initWithBackCamera()
     .streamFrom(video)
     .drawInto(canvas)
+    .pickFullHDResolution()
     .getCameraAsync()
     .then(async camera => {
         await camera.startAsync();
