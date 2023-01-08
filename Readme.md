@@ -52,6 +52,7 @@ CameraUtils.isCameraSupported();
 ## Methods
 * **getDevicesAsync:** Returns a promise which if is successfull will deliver an array of `MediaDeviceInfo` and if not will log an error.
 * **snap:** This method will take a picture and will return the canvasElement so you can extract the picture as whatever format you like.
+**Note:** by default, this method will `stop` the camera. You can pass the `stop` as boolean to prevent this behavior.
 * **snapAsDataUrl:** This method will take a picture and will return it as a dataUrl string.
 * **snapAsBlobAsync:** This method will take a picture and will return a promise which on success will deliver a `blob`.
 * **startAsync:** This method starts the camera and will return a promise.
