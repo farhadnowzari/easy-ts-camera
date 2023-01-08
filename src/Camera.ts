@@ -44,13 +44,13 @@ export default class Camera {
         return this.builder.canvas;
     }
 
-    snapAsDataUrl(): string {
-        this.snap();
+    snapAsDataUrl(stop: boolean = true, clearRect: boolean = true): string {
+        this.snap(stop, clearRect);
         return this.builder.canvas.toDataURL('image/png');
     }
 
-    snapAsBlobAsync(): Promise<Blob> {
-        this.snap();
+    snapAsBlobAsync(stop: boolean = true, clearRect: boolean = true): Promise<Blob> {
+        this.snap(stop, clearRect);
         return new Promise((resolve) => {
             this.builder.canvas.toBlob((blob) => {
                 resolve(blob);
@@ -74,6 +74,7 @@ export default class Camera {
             }
         });
     }
+
     public stop() {
         if (!this.builder.video && !this.builder.video.srcObject) return;
         if (this.builder.video.srcObject instanceof MediaStream) {
@@ -85,6 +86,7 @@ export default class Camera {
         }
         this.builder.video.srcObject = null;
     }
+
     public switchAsync(tryAgain = false): Promise<void> {
         return new Promise<void>(async (resolve, reject) => {
             this.builder.mediaConstraints.video.switchFacingMode(tryAgain);
