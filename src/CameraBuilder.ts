@@ -39,16 +39,29 @@ export default class CameraBuilder {
      * It will try to stream the UltraHD resolution from the camera.
      */
     public pick4KResolution(): CameraBuilder {
-        this.mediaConstraints.video.width = {
-            ideal: 3840,
-            max: 4096,
-            min: 1280
-        };
-        this.mediaConstraints.video.height = {
-            ideal: 2140,
-            max: 2160,
-            min: 720
-        };
+        if(this.mediaConstraints.video.aspectRatio > 1) {
+            this.mediaConstraints.video.width = {
+                ideal: 3840,
+                max: 4096,
+                min: 1280
+            };
+            this.mediaConstraints.video.height = {
+                ideal: 2140,
+                max: 2160,
+                min: 720
+            };
+        } else {
+            this.mediaConstraints.video.width = {
+                ideal: 2140,
+                max: 2160,
+                min: 720
+            };
+            this.mediaConstraints.video.height = {
+                ideal: 3840,
+                max: 4096,
+                min: 1280
+            };
+        }
         return this;
     }
 
@@ -56,16 +69,29 @@ export default class CameraBuilder {
      * It will try to stream the FullHD resolution from the camera.
      */
     public pickFullHDResolution(): CameraBuilder {
-        this.mediaConstraints.video.width = {
-            ideal: 1920,
-            max: 1920,
-            min: 1280
-        };
-        this.mediaConstraints.video.height = {
-            ideal: 1080,
-            max: 1080,
-            min: 720
-        };
+        if(this.mediaConstraints.video.aspectRatio > 1) {
+            this.mediaConstraints.video.width = {
+                ideal: 1920,
+                max: 1920,
+                min: 1280
+            };
+            this.mediaConstraints.video.height = {
+                ideal: 1080,
+                max: 1080,
+                min: 720
+            };
+        } else {
+            this.mediaConstraints.video.width = {
+                ideal: 1080,
+                max: 1080,
+                min: 720
+            };
+            this.mediaConstraints.video.height = {
+                ideal: 1920,
+                max: 1920,
+                min: 1280
+            };
+        }
         return this;
     }
 
