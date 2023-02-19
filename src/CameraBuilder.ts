@@ -5,6 +5,10 @@ export default class CameraBuilder {
     public canvas: HTMLCanvasElement;
     public mediaConstraints: MediaConstraints;
     public video: HTMLVideoElement;
+    
+    public get isIOS(): boolean {
+        return window.navigator.userAgent.indexOf("Mac") !== -1;
+    }
 
     public cameraStreamListener: (MediaStream) => void | null = null;
 
@@ -39,7 +43,7 @@ export default class CameraBuilder {
      * It will try to stream the UltraHD resolution from the camera.
      */
     public pick4KResolution(): CameraBuilder {
-        if(this.mediaConstraints.video.aspectRatio > 1) {
+        if(this.mediaConstraints.video.aspectRatio > 1 || !this.isIOS) {
             this.mediaConstraints.video.width = {
                 ideal: 3840,
                 max: 4096,
@@ -69,7 +73,7 @@ export default class CameraBuilder {
      * It will try to stream the FullHD resolution from the camera.
      */
     public pickFullHDResolution(): CameraBuilder {
-        if(this.mediaConstraints.video.aspectRatio > 1) {
+        if(this.mediaConstraints.video.aspectRatio > 1 || !this.isIOS) {
             this.mediaConstraints.video.width = {
                 ideal: 1920,
                 max: 1920,

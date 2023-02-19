@@ -1,4 +1,5 @@
 import CameraBuilder from "./CameraBuilder";
+import Statics from "./Statics";
 
 export default class Camera {
     public devices: Array<MediaDeviceInfo>;
@@ -61,13 +62,17 @@ export default class Camera {
     public startAsync(): Promise<void> {
         return new Promise<void>(async (resolve, reject) => {
             try {
-                await this.getDevicesAsync();
-                let stream = await navigator.mediaDevices.getUserMedia(this.builder.mediaConstraints);
-
-                this.builder.video.srcObject = stream;
-                this.stream = stream;
-                if(this.cameraStreamListener)
-                    this.cameraStreamListener(this.stream);
+                if(!Statics.stream) {
+                    await this.getDevicesAsync();
+                    let stream = await navigator.mediaDevices.getUserMedia(this.builder.mediaConstraints);
+                    this.builder.video.srcObject = stream;
+                    Statics.stream = stream;
+                    if(this.cameraStreamListener)
+                        this.cameraStreamListener(Statics.stream);
+                } else {
+                    Statics.stream.getTracks().forEach(x => x.enabled = true);
+                    this.builder.video.play();
+                }
                 resolve();
             } catch (error) {
                 console.error('StartAsync', error);
@@ -77,15 +82,9 @@ export default class Camera {
     }
 
     public stop() {
-        if (!this.builder.video && !this.builder.video.srcObject) return;
-        if (this.builder.video.srcObject instanceof MediaStream) {
-            let tracks = (this.builder.video.srcObject as MediaStream).getTracks();
-            tracks.forEach(track => track.stop());
-        } else {
-            let tracks = this.stream.getTracks();
-            tracks.forEach(track => track.stop());
-        }
-        this.builder.video.srcObject = null;
+        if (!Statics.stream) return;
+        Statics.stream.getTracks().forEach(x => x.enabled = false);
+        this.builder.video.pause();
     }
 
     public switchAsync(tryAgain = false): Promise<void> {
