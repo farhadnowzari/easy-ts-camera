@@ -71,9 +71,6 @@ export default class Camera {
                         this.cameraStreamListener(Statics.stream);
                 } else {
                     Statics.stream.getTracks().forEach(x => x.enabled = true);
-                    this.stream.getTracks().forEach(x => x.applyConstraints({
-                        facingMode: this.builder.mediaConstraints.video.facingMode
-                    }));
                     this.builder.video.srcObject = Statics.stream;
                     this.builder.video.play();
                 }

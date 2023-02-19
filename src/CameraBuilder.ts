@@ -1,5 +1,6 @@
 import Camera from "./Camera";
 import MediaConstraints from "./MediaConstraints";
+import Statics from "./Statics";
 
 export default class CameraBuilder {
     public canvas: HTMLCanvasElement;
@@ -96,6 +97,11 @@ export default class CameraBuilder {
                 min: 1280
             };
         }
+        return this;
+    }
+
+    public clearCachedStream(): CameraBuilder {
+        Statics.stream = null;
         return this;
     }
 
