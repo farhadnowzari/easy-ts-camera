@@ -3,7 +3,7 @@ import ETC from 'easy-ts-camera';
 var video = document.getElementsByTagName('video')[0];
 var canvas = document.getElementsByTagName('canvas')[0];
 
-ETC.initWithBackCamera()
+ETC.initWithUserCamera()
     .streamFrom(video)
     .drawInto(canvas)
     .pickFullHDResolution()
