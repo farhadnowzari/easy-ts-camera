@@ -70,7 +70,9 @@ export default class Camera {
                     if(this.cameraStreamListener)
                         this.cameraStreamListener(Statics.stream);
                 } else {
-                    Statics.stream.getTracks().forEach(x => x.enabled = true);
+                    Statics.stream.getTracks().forEach(x => {
+                        x.enabled = true;
+                    });
                     this.builder.video.srcObject = Statics.stream;
                     this.builder.video.play();
                 }
@@ -89,6 +91,7 @@ export default class Camera {
     }
 
     public switchAsync(tryAgain = false): Promise<void> {
+        Statics.stream = null;
         return new Promise<void>(async (resolve, reject) => {
             this.builder.mediaConstraints.video.switchFacingMode(tryAgain);
             this.stop();
