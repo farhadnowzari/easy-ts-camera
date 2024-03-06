@@ -1,6 +1,6 @@
 {
   "name": "easy-ts-camera",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A package which helps with adding camera support to a web application with typescript support",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
